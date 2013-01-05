@@ -86,7 +86,14 @@ var CardSuit = {
         "Spade" : 1,
         "Heart" : 2,
         "Diamond" : 3
-}
+};
 
 Object.freeze(CardSuit);
+
+var PlayerType = {
+	"Human" : 0,
+	"AI" : 1
+};
+
+Object.freeze(PlayerType);
 	

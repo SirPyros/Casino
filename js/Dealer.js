@@ -11,10 +11,10 @@ Dealer.prototype.deal = function(){
 	
 };
 
-Dealer.prototype.newGame = function(){
+Dealer.prototype.newGame = function(player1, player2){
 	if(this._deck.length == 0) this.setupDeck();
 	
-	_playableDeck = [];
+	var _playableDeck = [];
 	this._deck.forEach(function(element, index, array){
 		_playableDeck.push(element);
 	});
