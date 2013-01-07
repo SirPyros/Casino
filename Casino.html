@@ -13,8 +13,8 @@
 			border: solid 1px rgba(0,0,0,1);
 		}
 	</style>
-	<!--<script src="http://code.createjs.com/easeljs-0.5.0.min.js"></script>-->
-    <script type="text/javascript" src="../EaselJS/src/easeljs/utils/UID.js"></script>
+	<script src="http://code.createjs.com/easeljs-0.5.0.min.js"></script>
+<!--    <script type="text/javascript" src="../EaselJS/src/easeljs/utils/UID.js"></script>
     <script type="text/javascript" src="../EaselJS/src/easeljs/geom/Matrix2D.js"></script>
     <script type="text/javascript" src="../EaselJS/src/easeljs/events/EventDispatcher.js"></script>
     <script type="text/javascript" src="../EaselJS/src/easeljs/display/DisplayObject.js"></script>
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../EaselJS/src/easeljs/display/Bitmap.js"></script>
     <script type="text/javascript" src="../EaselJS/src/easeljs/display/BitmapAnimation.js"></script>
     <script type="text/javascript" src="../EaselJS/src/easeljs/geom/Rectangle.js"></script>
-    <script type="text/javascript" src="../EaselJS/src/easeljs/display/Text.js"></script>
+    <script type="text/javascript" src="../EaselJS/src/easeljs/display/Text.js"></script>-->
 	<script src="js/sprites.js"></script>
 	<script src="js/Card.js"></script>
 	<script src="js/CardStack.js"></script>
@@ -85,12 +85,26 @@
 
         function handleImageLoad() {
             var cardSpriteSheet = new createjs.SpriteSheet(cardData);
-            var img = createjs.SpriteSheetUtils.extractFrame(cardSpriteSheet,"Card01");
-            var bmp = new createjs.Bitmap(img);
-            bmp.x= bmp.y = 0;
-            stage.addChild(bmp);
+            var img = createjs.SpriteSheetUtils.extractFrame(cardSpriteSheet,"Card11");
 
-            document.getElementById("content").appendChild(img);
+
+            var bmp = new createjs.Bitmap(img);
+            var dragger = new createjs.Container();
+
+            dragger.x = dragger.y = 0;
+            dragger.addChild(bmp);
+            stage.addChild(dragger);
+
+            dragger.onPress = function(evt) {
+                var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
+
+                // add a handler to the event object's onMouseMove callback
+                // this will be active until the user releases the mouse button:
+                evt.onMouseMove = function(ev) {
+                    ev.target.x = ev.stageX+offset.x;
+                    ev.target.y = ev.stageY+offset.y;
+                }
+            }
         }
 	</script>
 </head>
@@ -98,11 +112,5 @@
 	<canvas id="demoCanvas" width="960" height="640">
 		alternate content
 	</canvas>
-    <div id="content">
-        Original sprite sheet:<br/>
-        <img src="Content/images/CardSprites.png"><br/><br/><br/>
-        Extracted frame:<br/>
-    </div>
-
 </body>
 </html>
