@@ -94,7 +94,7 @@
             dragger.x = dragger.y = 0;
             dragger.addChild(bmp);
             stage.addChild(dragger);
-
+            //TODO: Take code from this example https://github.com/CreateJS/EaselJS/blob/master/examples/DragAndDrop.html
             dragger.onPress = function(evt) {
                 var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
 
