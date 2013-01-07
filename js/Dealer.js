@@ -4,11 +4,23 @@ function Dealer()
 	this._deck = [];
 	this._board = [];
 	this._playableDeck = [];
-	this.firstHand = false;
+	this._firstHand = false;
 }
 
 Dealer.prototype.deal = function(){
-	
+	var playerIdx = 0;
+    for(var idx=0;idx < 8; idx++){
+        this._players[playerIdx].addCardToHand(this._playableDeck.pop());
+        playerIdx++;
+        if (playerIdx == this._players.length)
+            playerIdx = 0;
+    }
+
+    if(this._firstHand){
+        for(var idx=0;idx < 4; idx++){
+            this._board.push(new CardStack(this._playableDeck.pop()));
+        }
+    }
 };
 
 Dealer.prototype.newGame = function(player1, player2){
@@ -19,7 +31,9 @@ Dealer.prototype.newGame = function(player1, player2){
 		_playableDeck.push(element);
 	});
 	this._playableDeck = _playableDeck;
-	this.firstHand = true;
+    this._board = [];
+    this._players = [player1, player2];
+	this._firstHand = true;
 };
 
 Dealer.prototype.setupDeck = function(){

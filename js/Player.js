@@ -9,5 +9,13 @@ Player.prototype.addCardToHand = function(card){
 };
 
 Player.prototype.addCardsToPile = function(stack) {
+    var captured = this._captured;
+    stack.forEach(function(element, index, array){
+       captured.push(element);
+    });
+};
 
+Player.prototype.dispose = function(){
+    this._hand = null;
+    this._captured = null;
 };
